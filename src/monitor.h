@@ -22,10 +22,17 @@
 #define LIGHT_BROWN 14
 #define WHITE 15
 
-typedef struct monitor {
+typedef struct monitor_data {
+	u16int width;
+	u16int height;
+	u16int depth;
 	u16int *video_memory;
 	u16int cursor_x;
 	u16int cursor_y;
+} monitor_data;
+
+typedef struct monitor {
+	monitor_data data;
 	void (*monitor_put) (char c, u8int backColour, u8int foreColour);
 	void (*monitor_clear)();
 	void (*monitor_write)(char *c);

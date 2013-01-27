@@ -1,0 +1,13 @@
+#include "keyboard.h"
+#include "isr.h"
+#include "monitor.h"
+#include "common.h"
+
+static void keyboard_callback(registers_t regs) {
+	u8int scancode = inb(0x60);
+	
+}
+
+void init_keyboard() {
+	register_interrupt_handler(IRQ1, &keyboard_callback);
+}

@@ -3,6 +3,7 @@
 #include "text_gui.h"
 #include "descriptor_tables.h"
 #include "timer.h"
+#include "keyboard.h"
 
 int main(struct multiboot *mboot_ptr)
 {
@@ -17,7 +18,10 @@ int main(struct multiboot *mboot_ptr)
 	
 	asm volatile("sti");
 	// initialize the timer
-	init_timer(50);
+	//init_timer(50);
+	
+	// initialize the keyboard
+	init_keyboard();
 	
 	return 0xDEADBABA;
 }
