@@ -20,7 +20,7 @@ char *strcpy(char *dest, const char *src);
 int strcmp(char *str1, char *str2);
 int strlen(char *src);
 
-void memcpy(void *dest, const u8int *src, u32int len);
-void memset(void *dest, u8int val, u32int len);
+void memcpy(u8int *dest, const u8int *src, u32int len);
+void memset(u8int *dest, u8int val, u32int len);
 
 #endif
