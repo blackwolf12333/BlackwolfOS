@@ -17,10 +17,13 @@ int main(struct multiboot *mboot_ptr)
 	
 	asm volatile("sti");
 	// initialize the timer
-	//init_timer(50);
+	init_timer(50);
 	
 	// initialize the keyboard
-	init_keyboard();
+	//init_keyboard();
+	kprintf("%s\n", "Test");
+	sleep(3);
+	kprintf("%s\n", "Test2");
 	
 	return 0xDEADBABA;
 }

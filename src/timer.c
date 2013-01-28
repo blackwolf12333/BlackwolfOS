@@ -11,15 +11,20 @@ u32int second = 0;
 static void timer_callback(registers_t regs)
 {
 	tick++;
-	if(tick % 19 == 0) {
+	if(tick % 18 == 0) {
 		second++;
-		vga.monitor_write("Tick: ");
+		/*vga.monitor_write("Tick: ");
 		vga.monitor_write_dec(tick);
 		vga.monitor_write("\n");
 		vga.monitor_write("Second: ");
 		vga.monitor_write_dec(second);
-		vga.monitor_write("\r\b");
+		vga.monitor_write("\r\b");*/
 	}
+}
+
+void sleep(u32int seconds) {
+	u32int endSecond = second + seconds;
+	while(second < endSecond);
 }
 
 void init_timer(u32int frequency)
