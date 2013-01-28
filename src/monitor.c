@@ -2,11 +2,13 @@
 #include "monitor.h"
 
 // function prototypes
-void monitor_put(char c, u8int backColour, u8int foreColour);
-void monitor_clear();
-void monitor_write(char *c);
-void monitor_write_colorful(char *c, u8int backColour, u8int foreColour);
-void monitor_set_cursor(u16int x, u16int y);
+static void monitor_put(char c, u8int backColour, u8int foreColour);
+static void monitor_clear();
+static void monitor_write(char *c);
+static void monitor_write_colorful(char *c, u8int backColour, u8int foreColour);
+static void monitor_set_cursor(u16int x, u16int y);
+static void monitor_write_hex(u32int n);
+static void monitor_write_dec(u32int n);
 
 void initialize_monitor_vga() {
 	vga.data.video_memory = (u16int *)0xB8000;
@@ -19,6 +21,8 @@ void initialize_monitor_vga() {
 	vga.monitor_write = monitor_write;
 	vga.monitor_write_colorful = monitor_write_colorful;
 	vga.monitor_set_cursor = monitor_set_cursor;
+	vga.monitor_write_hex = monitor_write_hex;
+	vga.monitor_write_dec = monitor_write_dec;
 	vga.monitor_clear();
 }
 
@@ -65,7 +69,7 @@ static void scroll()
    }
 }
 
-u16int getPositionOfLastCharacter() {
+/*u16int getPositionOfLastCharacter() {
 	u16int *location;
 	u16int bits=8;
 	u16int x;
@@ -80,10 +84,10 @@ u16int getPositionOfLastCharacter() {
 		}
 	}
 	return 0;
-}
+}*/
 
 // Writes a single character out to the screen.
-void monitor_put(char c, u8int backColour, u8int foreColour)
+static void monitor_put(char c, u8int backColour, u8int foreColour)
 {
    // The attribute byte is made up of two nibbles - the lower being the
    // foreground colour, and the upper the background colour.
@@ -101,7 +105,7 @@ void monitor_put(char c, u8int backColour, u8int foreColour)
 			vga.data.cursor_x--;
 		} else if(vga.data.cursor_x == 0) {
 			vga.data.cursor_y--;
-			vga.data.cursor_x = getPositionOfLastCharacter();
+			vga.data.cursor_x = 0;//getPositionOfLastCharacter();
 		}
 	}
 
@@ -150,7 +154,7 @@ void monitor_put(char c, u8int backColour, u8int foreColour)
 }
 
 // Clears the screen, by copying lots of spaces to the framebuffer.
-void monitor_clear()
+static void monitor_clear()
 {
    // Make an attribute byte for the default colours
    u8int attributeByte = (0 /*black*/ << 4) | (15 /*white*/ & 0x0F);
@@ -169,7 +173,7 @@ void monitor_clear()
 }
 
 // Outputs a null-terminated ASCII string to the monitor.
-void monitor_write(char *c)
+static void monitor_write(char *c)
 {
    int i = 0;
    while (c[i])
@@ -178,7 +182,7 @@ void monitor_write(char *c)
    }
 }
 
-void monitor_write_colorful(char *c, u8int backColour, u8int foreColour) {
+static void monitor_write_colorful(char *c, u8int backColour, u8int foreColour) {
 	int i = 0;
    while (c[i])
    {
@@ -186,13 +190,13 @@ void monitor_write_colorful(char *c, u8int backColour, u8int foreColour) {
    }
 }
 
-void monitor_set_cursor(u16int x, u16int y) {
+static void monitor_set_cursor(u16int x, u16int y) {
 	vga.data.cursor_x = x;
 	vga.data.cursor_y = y;
 	move_cursor();
 }
 
-void monitor_write_hex(u32int n)
+static void monitor_write_hex(u32int n)
 {
     s32int tmp;
 
@@ -233,7 +237,7 @@ void monitor_write_hex(u32int n)
 
 }
 
-void monitor_write_dec(u32int n)
+static void monitor_write_dec(u32int n)
 {
 
     if (n == 0)

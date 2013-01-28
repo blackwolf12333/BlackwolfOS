@@ -4,6 +4,7 @@
 #include "descriptor_tables.h"
 #include "timer.h"
 #include "keyboard.h"
+#include "kprintf.h"
 
 int main(struct multiboot *mboot_ptr)
 {
@@ -13,8 +14,6 @@ int main(struct multiboot *mboot_ptr)
 	initialize_monitor_vga();
 	vga.monitor_write("Hello World!\n");
 	//initialize_text_gui();
-	asm volatile("int $0x3");
-	asm volatile("int $0x4");
 	
 	asm volatile("sti");
 	// initialize the timer

@@ -6,13 +6,20 @@
 #include "monitor.h"
 
 u32int tick = 0;
+u32int second = 0;
 
 static void timer_callback(registers_t regs)
 {
-    tick++;
-    monitor_write("Tick: ");
-    monitor_write_dec(tick);
-    monitor_write("\n");
+	tick++;
+	if(tick % 19 == 0) {
+		second++;
+		vga.monitor_write("Tick: ");
+		vga.monitor_write_dec(tick);
+		vga.monitor_write("\n");
+		vga.monitor_write("Second: ");
+		vga.monitor_write_dec(second);
+		vga.monitor_write("\r\b");
+	}
 }
 
 void init_timer(u32int frequency)
@@ -23,7 +30,7 @@ void init_timer(u32int frequency)
     // The value we send to the PIT is the value to divide it's input clock
     // (1193180 Hz) by, to get our required frequency. Important to note is
     // that the divisor must be small enough to fit into 16-bits.
-    u32int divisor = 1193180 / frequency;
+    /*u32int divisor = 1193180 / frequency;
 
     // Send the command byte.
     outb(0x43, 0x36);
@@ -34,5 +41,5 @@ void init_timer(u32int frequency)
 
     // Send the frequency divisor.
     outb(0x40, l);
-    outb(0x40, h);
+    outb(0x40, h);*/
 }

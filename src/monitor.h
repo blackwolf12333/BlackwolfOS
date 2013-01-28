@@ -38,6 +38,8 @@ typedef struct monitor {
 	void (*monitor_write)(char *c);
 	void (*monitor_write_colorful)(char *c, u8int backColour, u8int foreColour);
 	void (*monitor_set_cursor)(u16int x, u16int y);
+	void (*monitor_write_hex)(u32int n);
+	void (*monitor_write_dec)(u32int n);
 } monitor;
 
 monitor vga;
