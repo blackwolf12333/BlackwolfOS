@@ -65,8 +65,8 @@ static void keyboard_callback(registers_t regs) {
 		} else {
 			char c = kbdus[scancode];
 			if(shift_pressed == 1) {
-				int indexofc = indexOf(alfanum, c);
-				c = alfanum[indexofc+27];
+				int indexofc = indexOf(alfa, c);
+				c = alfa[indexofc+27];
 			}
 			vga.monitor_put(c, BLACK, WHITE);	
 		}
