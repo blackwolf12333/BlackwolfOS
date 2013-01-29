@@ -6,6 +6,11 @@
 #include "keyboard.h"
 #include "kprintf.h"
 
+void init_vga_graphics_mode() {
+	asm volatile("mov 0013, %ax");
+	asm volatile("int $10");
+}
+
 int main(struct multiboot *mboot_ptr)
 {
 	// All our initialisation calls will go in here.
@@ -22,8 +27,8 @@ int main(struct multiboot *mboot_ptr)
 	// initialize the keyboard
 	//init_keyboard();
 	kprintf("%s\n", "Test");
-	sleep(3);
-	kprintf("%s\n", "Test2");
+	
+	init_vga_graphics_mode();
 	
 	return 0xDEADBABA;
 }

@@ -13,12 +13,6 @@ static void timer_callback(registers_t regs)
 	tick++;
 	if(tick % 18 == 0) {
 		second++;
-		/*vga.monitor_write("Tick: ");
-		vga.monitor_write_dec(tick);
-		vga.monitor_write("\n");
-		vga.monitor_write("Second: ");
-		vga.monitor_write_dec(second);
-		vga.monitor_write("\r\b");*/
 	}
 }
 
@@ -29,7 +23,6 @@ void sleep(u32int seconds) {
 
 void init_timer(u32int frequency)
 {
-    // Firstly, register our timer callback.
     register_interrupt_handler(IRQ0, &timer_callback);
 
     // The value we send to the PIT is the value to divide it's input clock

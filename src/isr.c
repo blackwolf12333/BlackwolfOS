@@ -23,7 +23,7 @@ void isr_handler(registers_t regs) {
 	} else {
 		vga.monitor_write("recieved interrupt: ");
 		vga.monitor_write_dec(regs.int_no);
-		vga.monitor_write("\tAre you gonna do something about that??\n");
+		vga.monitor_write("\n");
 	}
 }
 
