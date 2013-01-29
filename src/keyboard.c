@@ -2,6 +2,8 @@
 #include "isr.h"
 #include "monitor.h"
 #include "common.h"
+#include "arrays.h"
+#include "charmap.h"
 
 char kbdus[128] =
 {
@@ -60,8 +62,14 @@ static void keyboard_callback(registers_t regs) {
 			alt_pressed = 1;
 		} else if(kbdus[scancode] == 50) {
 			shift_pressed = 1;
+		} else {
+			char c = kbdus[scancode];
+			if(shift_pressed == 1) {
+				int indexofc = indexOf(alfanum, c);
+				c = alfanum[indexofc+27];
+			}
+			vga.monitor_put(c, BLACK, WHITE);	
 		}
-		vga.monitor_put(kbdus[scancode], BLACK, WHITE);
 	}
 }
 
