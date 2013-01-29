@@ -43,11 +43,24 @@ char kbdus[128] =
     0,	/* All other keys are undefined */
 };
 
+u8int alt_pressed = 0;
+u8int shift_pressed = 0;
+
 static void keyboard_callback(registers_t regs) {
 	u8int scancode = inb(0x60);
 	if(scancode & 0x80) {
-		// TODO handle the release of a key
+		// TODO handle the release of a key\
+		if(kbdus[scancode] == 29) {
+			alt_pressed = 0;
+		} else if(kbdus[scancode] == 50) {
+			shift_pressed = 0;
+		}
 	} else {
+		if(kbdus[scancode] == 29) {
+			alt_pressed = 1;
+		} else if(kbdus[scancode] == 50) {
+			shift_pressed = 1;
+		}
 		vga.monitor_put(kbdus[scancode], BLACK, WHITE);
 	}
 }
