@@ -4,6 +4,7 @@
 #include "common.h"
 #include "arrays.h"
 #include "charmap.h"
+#include "kprintf.h"
 
 char kbdus[128] =
 {
@@ -51,7 +52,7 @@ u8int shift_pressed = 0;
 static void keyboard_callback(registers_t regs) {
 	u8int scancode = inb(0x60);
 	if(scancode & 0x80) {
-		// TODO handle the release of a key\
+		// TODO handle the release of a key
 		if(kbdus[scancode] == 29) {
 			alt_pressed = 0;
 		} else if(kbdus[scancode] == 50) {
@@ -66,7 +67,9 @@ static void keyboard_callback(registers_t regs) {
 			char c = kbdus[scancode];
 			if(shift_pressed == 1) {
 				int indexofc = indexOf(alfa, c);
-				c = alfa[indexofc+27];
+				if(indexofc >= 0) {
+					c = alfa[indexofc+26];
+				}
 			}
 			vga.monitor_put(c, BLACK, WHITE);	
 		}
