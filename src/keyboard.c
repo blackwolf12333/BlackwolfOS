@@ -12,18 +12,18 @@ char kbdus[128] =
   't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
     0,			/* 29   - Control */
   'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
- '\'', '`',   0,		/* Left shift */
+ '\'', '`',   50,		/* Left shift */
  '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
-  'm', ',', '.', '/',   0,				/* Right shift */
+  'm', ',', '.', '/',   50,				/* Right shift */
   '*',
-    0,	/* Alt */
+    29,	/* Alt */
   ' ',	/* Space bar */
-    0,	/* Caps lock */
-    0,	/* 59 - F1 key ... > */
-    0,   0,   0,   0,   0,   0,   0,   0,
-    0,	/* < ... F10 */
-    0,	/* 69 - Num lock*/
-    0,	/* Scroll Lock */
+    53,	/* Caps lock */
+    31,	/* 59 - F1 key ... > */
+    32,   33,   34,   35,   36,   37,   38,   39,
+    40,	/* < ... F10 */
+    51,	/* 69 - Num lock*/
+    52,	/* Scroll Lock */
     0,	/* Home key */
     0,	/* Up Arrow */
     0,	/* Page Up */
@@ -38,8 +38,8 @@ char kbdus[128] =
     0,	/* Insert Key */
     0,	/* Delete Key */
     0,   0,   0,
-    0,	/* F11 Key */
-    0,	/* F12 Key */
+    41,	/* F11 Key */
+    42,	/* F12 Key */
     0,	/* All other keys are undefined */
 };
 
