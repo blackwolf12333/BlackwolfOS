@@ -3,7 +3,7 @@
 
 typedef struct {
     char *stdout;
-    void (*printf)(char *format, ...);
+    void (*printf)(const char *format, ...);
 }
 
 #endif
