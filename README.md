@@ -11,7 +11,7 @@ Than execute
 
         # sh build
 
-that will build the files in src and add the output to
+That will build the files in src and add the output to
 the floppy.img file.
 
 Running
