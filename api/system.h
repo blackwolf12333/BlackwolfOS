@@ -4,6 +4,6 @@
 typedef struct {
     char stdout;
     void (*printf)(const char *format, ...);
-}
+} system;
 
 #endif
