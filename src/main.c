@@ -20,7 +20,6 @@ int main(struct multiboot *mboot_ptr) {
 	
 	// initialize the keyboard
 	init_keyboard();
-	kprintf("%s\n", "Test");
 	
 	return 0xDEADBABA;
 }

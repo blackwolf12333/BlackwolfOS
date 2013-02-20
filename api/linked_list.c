@@ -1,19 +1,12 @@
 #include "linked_list.h"
-#include "stdio.h"
+#include "system.h"
 
-node *start_list(void *data) {
-    node n;
-    n.data = data;
-    n.next = NULL;
-    return &n;
+list_node *start_list(list_node *start, void *data) {
+    start->data = data;
+    start->next = NULL;
+    return start;
 }
 
-void place_after(node *after, void *data) {
-    node *next;
-    node new;
-    new.data = data;
-    new.next = after->next;
-    while((next = new->next) != NULL) {
-        next->next = next;
-    }
+void place_after(list_node *after, void *data) {
+    
 }

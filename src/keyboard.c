@@ -69,6 +69,12 @@ static void keyboard_callback(registers_t regs) {
 				int indexofc = indexOf(alfa, c);
 				if(indexofc >= 0) {
 					c = alfa[indexofc+26];
+				} else if(indexofc == -1) {
+					kprintf("org: %c", c);
+					indexofc = indexOf(numeric, c);
+					if(indexofc >= 0) {
+						c = numeric[c+10];
+					}
 				}
 			}
 			vga.monitor_put(c, BLACK, WHITE);	
