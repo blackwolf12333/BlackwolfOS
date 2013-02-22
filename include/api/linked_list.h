@@ -1,11 +1,21 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+typedef struct list_node_t list_node;
+typedef struct list_t list;
+
+typedef struct list_t {
+	list_node *start;
+	list_node *end;
+	int current;
+} list;
+
 typedef struct list_node_t {
+	int index;
     void *data;
-    struct list_node_t *next;
+    list_node *next;
 } list_node;
 
-list_node *start_list(list_node *start, void *data);
+void start_list(list_node *start, void *data);
 
 #endif

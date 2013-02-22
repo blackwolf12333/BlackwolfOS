@@ -7,3 +7,6 @@ ASFLAGS=-felf
 SOURCES = linked_list.o
 
 all: $(SOURCES)
+
+clean:
+	-rm *.o

@@ -13,6 +13,11 @@ static void timer_callback(registers_t regs)
 	tick++;
 	if(tick % 18 == 0) {
 		second++;
+		u16int x = vga.data.cursor_x;
+		u16int y = vga.data.cursor_y;
+		vga.monitor_set_cursor(75, 0);
+		vga.monitor_write_dec(second);
+		vga.monitor_set_cursor(x, y);
 	}
 }
 
