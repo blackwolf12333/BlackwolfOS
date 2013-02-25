@@ -8,8 +8,9 @@
 #include "api/linked_list.h"
 #include "api/system.h"
 #include "stdarg.h"
+#include "kheap.h"
+#include "paging.h"
 
-int createlist(char *lnode, ...);
 list_node liststart;
 
 int main(struct multiboot *mboot_ptr) {
@@ -24,34 +25,11 @@ int main(struct multiboot *mboot_ptr) {
 	// initialize the timer
 	init_timer(50);
 	
-	// initialize the keyboard
-	//init_keyboard();
-	int length = createlist("test", "apple", "lolgek", NULL);
-	kprintf("%d\n", length);
-	list_node *ptr = &liststart;
-	while(ptr) {
-		kprintf("%s ", ptr->data);
-		ptr = ptr->next;
-	}
+	initialise_paging();
+   vga.monitor_write("Hello, paging world!\n");
+
+   u32int *ptr = (u32int*)0xA0000000;
+   u32int do_page_fault = *ptr;
 	
 	return 0xDEADBABA;
-}
-
-int createlist(char *lnode, ...) {
-	int i = 1;
-	va_list args;
-	va_start(args, lnode);
-	
-	start_list(&liststart, lnode);
-	list_node *ptr = &liststart;
-	char *arg = va_arg(args, char*);
-	while(arg) {
-		i++;
-		add_to_list(&ptr, arg);
-		ptr = ptr->next;
-	}
-	
-	va_end(args);
-	kprintf("\tfinished creating list\n");
-	return i;
 }
